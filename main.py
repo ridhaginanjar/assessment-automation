@@ -7,7 +7,7 @@ from pipeline.index import main
 def check_is_dir(directory_path):
     if not os.path.isdir(directory_path):
         raise argparse.ArgumentTypeError('{} is not a directory'.format(directory_path))
-    return dir
+    return directory_path
 
 
 if __name__ == "__main__":
