@@ -4,19 +4,25 @@ import pipeline.contract as ct
 import pipeline.checklist as cks
 
 
-def find_package(submission_path, c):
+def find_file(submission_path, file_name):
+    """
+    Find a file in the submission
+    :param submission_path:
+    :param file_name:
+    :return file_path, comment:
+    """
+
     comment = ""
-    package_path = ""
+    file_path = ""
 
-    for root, dirs, files in os.walk(submission_path, topdown=False):
-        if "package.json" in files:
-            package_path = os.path.join(root, "package.json")
+    for root, dirs, files in os.walk(submission_path):
+        if file_name in files:
+            file_path = os.path.join(root, file_name)
             break
-    if not package_path:
-        comment = "package.json tidak ditemukan nih"
+    if not file_path:
+        comment = f"{file_name} tidak ditemukan di project submission kamu"
 
-    return package_path, comment
-
+    return file_path, comment
 
 def main(params):
     submission_path = params.s
@@ -33,13 +39,16 @@ def main(params):
     c.new_checklist()
 
     # Check Package.json
-    package_path, comment = find_package(submission_path, c)
+    package_path, comment = find_file(submission_path, "package.json")
     if not comment:
         c.checkPackageJson.status = True
     c.checkPackageJson.comment = comment
 
-
     # Check main.js
+    mainjs_path, comment = find_file(submission_path, "main.js")
+    if not comment:
+        c.checkMainJS.status = True
+    c.checkMainJS.comment = comment
 
     # Runs the program (Depends to main.js and Package.json)
 
