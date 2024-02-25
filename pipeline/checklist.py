@@ -8,6 +8,10 @@ class Checklists:
     def __init__(self):
         self.checkPackageJson = Checklist()
         self.checkMainJS = Checklist()
+        self.checkStudentId = Checklist()
+        self.checkHTMLonRoot = Checklist()
+        self.checkPort5000 = Checklist()
+        self.h1WithStudentId = Checklist()
 
     def new_checklist(self):
         """
@@ -16,6 +20,10 @@ class Checklists:
         """
         self.checkPackageJson = Checklist(False, "")
         self.checkMainJS = Checklist(False, "")
+        self.checkStudentId = Checklist(False, "")
+        self.checkHTMLonRoot = Checklist(False, "")
+        self.checkPort5000 = Checklist(False, "")
+        self.h1WithStudentId = Checklist(False, "")
 
 
 """
