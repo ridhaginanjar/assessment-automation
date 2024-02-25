@@ -13,6 +13,6 @@ def main(params):
     get_config = ct.read_config(submission_path)
     print(get_config['submitter_name'])
 
-    ct.write_report(output_path, report_dic)
+    ct.write_json(output_path, report_dic)
 
 

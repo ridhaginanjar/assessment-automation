@@ -19,7 +19,7 @@ def read_config(submission_path):
         print("auto-review-config.json not found")
 
 
-def write_report(output_path, report_dic):
+def write_json(output_path, report_dic):
     """
     Write dictionary to be JSON file
     :param output_path:
