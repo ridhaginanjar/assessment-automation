@@ -1,10 +1,13 @@
 import os
+import threading
 
 import pipeline.contract as ct
 import pipeline.checklist as cks
+import pipeline.report as rpt
+import pipeline.utils as utils
 
 
-def find_file(submission_path, file_name):
+def find_file(submission_path, file_name: str):
     """
     Find a file in the submission
     :param submission_path:
@@ -24,14 +27,15 @@ def find_file(submission_path, file_name):
 
     return file_path, comment
 
-def main(params):
+
+def main(params: str):
+    """
+    Main function for the pipeline to check the whole submission directory
+    :param params:
+    :return:
+    """
     submission_path = params.s
     output_path = params.o
-
-    report_dic = {
-        "checklist": [],
-        "message": ""
-    }
 
     get_config = ct.read_config(submission_path)
 
@@ -40,26 +44,48 @@ def main(params):
 
     # Check Package.json
     package_path, comment = find_file(submission_path, "package.json")
+    project_path = package_path.replace("/package.json", "")
     if not comment:
-        c.checkPackageJson.status = True
-    c.checkPackageJson.comment = comment
+        c.package_json_exists.status = True
+    c.package_json_exists.comment = comment
 
     # Check main.js
-    mainjs_path, comment = find_file(submission_path, "main.js")
+    main_js_path, comment = find_file(submission_path, "main.js")
     if not comment:
-        c.checkMainJS.status = True
-    c.checkMainJS.comment = comment
+        c.main_js_exists.status = True
+    c.main_js_exists.comment = comment
 
     # Runs the program (Depends to main.js and Package.json)
+    if package_path and main_js_path:
+        # Check root with HTML (Depends to "Runs the program")
+        utils.run_npm_install(project_path)
 
-    # Check comment with student ID (Depends to "Runs the program")
+        # Check port 5000 (Depends to "Runs the program")
+        print(main_js_path)
+        thread = threading.Thread(target=utils.run_main_js, args=(main_js_path,))
+        thread.start()
 
-    # Check root with HTML (Depends to "Runs the program")
+        comment = utils.checking_server()
+        if not comment:
+            c.serve_in_port_5000.status = True
+        c.serve_in_port_5000.comment = comment
 
-    # Check port 5000 (Depends to "Runs the program")
+        # Check h1 with student ID (Depends to "Runs Program")
+        print(c.serve_in_port_5000.__dict__)
 
-    # Check h1 with student ID (Depends to "Runs Program")
+    # Check comment with student ID (Depends to "main.js exist")
+    if main_js_path:
+        print("check ID")
 
-    ct.write_json(output_path, report_dic)
+    report = rpt.generate_report(c, get_config['submitter_name'])
+    ct.write_json(output_path, report)
+
+
+"""
+Error Handling:
+- stop server
+- waitserver till up
+- unhandled error (logging for error)
+"""
 
 
