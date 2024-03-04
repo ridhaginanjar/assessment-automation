@@ -10,7 +10,13 @@ def run_npm_install(project_path):
 
 
 def run_main_js(main_js_path):
-    sub = subprocess.run(["node", main_js_path], capture_output=True)
+    sub = subprocess.check_output(["node", main_js_path])
+    if sub.returncode != 0:
+        print(sub.stderr.decode().strip())
+
+
+def stop_server():
+    sub = subprocess.run(['kill', '-9 $(lsof -t -i tcp)'])
     if sub.returncode != 0:
         print(sub.stderr.decode().strip())
 
@@ -29,12 +35,12 @@ def checking_server():
                 print("Server is running on port {}".format(port))
                 return ""
         except ConnectionRefusedError as e:
+            print(e)
             pass
 
         time.sleep(1)
 
     print("Server did not running on port 5000")
-    return "Kami tidak mendeteksi bahwa aplikasi berjalan pada Port 5000. Silakan cek kembali project kamu ya"
+    stop_server()
 
-# def stop_server():
-#     sub = subprocess.run(['kill', '-9', ''])
+    return "Kami tidak mendeteksi bahwa aplikasi berjalan pada Port 5000. Silakan cek kembali project kamu ya"

@@ -1,5 +1,6 @@
 import os
 import threading
+import asyncio
 
 import pipeline.contract as ct
 import pipeline.checklist as cks
@@ -61,7 +62,6 @@ def main(params: str):
         utils.run_npm_install(project_path)
 
         # Check port 5000 (Depends to "Runs the program")
-        print(main_js_path)
         thread = threading.Thread(target=utils.run_main_js, args=(main_js_path,))
         thread.start()
 
@@ -74,8 +74,9 @@ def main(params: str):
         print(c.serve_in_port_5000.__dict__)
 
     # Check comment with student ID (Depends to "main.js exist")
-    if main_js_path:
-        print("check ID")
+    # if main_js_path:
+    #     print("check ID")
+    print(c.package_json_exists.__dict__)
 
     report = rpt.generate_report(c, get_config['submitter_name'])
     ct.write_json(output_path, report)
