@@ -209,7 +209,7 @@ def main(params: str):
 
         utils.stop_server()
     except Exception as e:
-        print(e)
+        logging.warning(f'Error occurs: {e}')
         utils.stop_server()
 
 
