@@ -39,5 +39,4 @@ def checking_server():
         time.sleep(2)
 
     print("Server did not running on port 5000")
-    stop_server()
     return "Kami tidak mendeteksi bahwa aplikasi berjalan pada Port 5000. Silakan cek kembali project kamu ya"

@@ -43,7 +43,7 @@ def find_comment(file_path, student_id):
 
 def root_serving_html():
     response = requests.get("http://localhost:5000")
-    header = response.headers.et("Content-Type")
+    header = response.headers.get("Content-Type")
     result = re.search(rf"^text/html", header)
     if result:
         return ""
@@ -56,10 +56,10 @@ def h1_contains_student_id(student_id):
     h1 = soup.find_all("h1")
 
     for i in range(len(h1)):
-        result = re.search(rf"^<h1>{student_id}</h1>", str(h1[i]))
+        result = re.search(rf"<h1>{student_id}</h1>", str(h1[i]))
         if result:
             return ""
-    return "Kami tidak menemukan element h1 yang di-isi dengan student id "
+    return "Kami tidak menemukan element h1 yang di-isi dengan student id"
 
 
 def main(params: str):
@@ -110,14 +110,12 @@ def main(params: str):
                     c.root_serving_html.status = True
                 c.root_serving_html.comment = comment
 
+                # Check h1 with student ID (Depends to "Runs Program")
                 if c.root_serving_html.status:
                     comment = h1_contains_student_id(get_config['submitter_id'])
                     if not comment:
                         c.html_contain_h1_element_with_student_id.status = True
                     c.html_contain_h1_element_with_student_id.comment = comment
-
-            # Check h1 with student ID (Depends to "Runs Program")
-            print(c.serve_in_port_5000.__dict__)
 
         # Check comment with student ID (Depends to "main.js exist")
         if main_js_path:
@@ -125,8 +123,6 @@ def main(params: str):
             if not comment:
                 c.main_js_has_student_id_comment.status = True
             c.main_js_has_student_id_comment.comment = comment
-
-            print(c.main_js_has_student_id_comment.__dict__)
 
         report = rpt.generate_report(c, get_config['submitter_name'])
         ct.write_json(output_path, report)
@@ -139,7 +135,9 @@ def main(params: str):
 
 """
 Error Handling:
-- unhandled error (logging for error)
+- unhandled error 
+- logging for error
+- cleaning code
 """
 
 

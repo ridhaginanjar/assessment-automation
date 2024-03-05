@@ -8,7 +8,7 @@ def create_report(checklists):
         if status:
             checklist_completed.append(keys)
         if comment:
-            messages.append(comment)
+            messages.append("<li>" + comment + "</li>")
 
     return {
         "checklistCompleted": checklist_completed,
@@ -16,7 +16,20 @@ def create_report(checklists):
     }
 
 
+def is_submission_passed(report):
+    return len(report["checklistCompleted"]) == 6
+
+
+def generate_template(report, username):
+    if is_submission_passed(report):
+        return f"Selamat! <b>{username}</b> kamu sudah telah lolos submission ini."
+
+    result = ''.join(report["messages"])
+    return f"Hi <b>{username}</b>, masih terdapat beberapa kesalahan nih, beriku beberapa kesalahannya <ul>{result}</ul>. Silakan perbaiki ya"
+
+
 def generate_report(checklists, username):
     report = create_report(checklists)
-    # print(report['messages'])
-    return None
+    report['messages'] = generate_template(report, username)
+    print(report)
+    return report
