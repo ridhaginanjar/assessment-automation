@@ -213,10 +213,3 @@ def main(params: str):
         utils.stop_server()
 
 
-"""
-Error Handling:
-- logging
-- cleaning code
-"""
-
-
