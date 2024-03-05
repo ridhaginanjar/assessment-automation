@@ -1,3 +1,9 @@
+// 1234567
+
+/*
+    1234567
+ */
+
 const Hapi = require('@hapi/hapi');
 
 (async () => {
