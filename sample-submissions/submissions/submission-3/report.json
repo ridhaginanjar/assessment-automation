@@ -3,5 +3,5 @@
         "package_json_exists",
         "main_js_exists"
     ],
-    "messages": "Hi <b>Asep</b>, masih terdapat beberapa kesalahan nih, beriku beberapa kesalahannya <ul><li>Kami tidak menemukan student_id kamu nih di file main.js</li><li>Kami tidak mendeteksi bahwa aplikasi berjalan pada Port 5000. Silakan cek kembali project kamu ya</li></ul>. Silakan perbaiki ya"
+    "messages": "Hi <b>Asep</b>, masih terdapat beberapa kesalahan nih, berikut beberapa kesalahannya <ul><li>Kami tidak menemukan student_id kamu nih di file main.js</li><li>Kami tidak mendeteksi bahwa aplikasi berjalan pada Port 5000. Silakan cek kembali project kamu ya</li></ul>. Silakan perbaiki ya"
 }

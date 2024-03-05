@@ -3,10 +3,12 @@
 /*
     1234567
  */
+
 const express = require('express');
 const dotenv = require('dotenv');
 
 dotenv.config();
+console.log(process.env.APP_HOST, process.env.APP_PORT)
 
 const app = express();
 

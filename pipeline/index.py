@@ -178,7 +178,7 @@ def main(params: str):
         if package_path and main_js_path:
             utils.run_npm_install(project_path)
 
-            thread = threading.Thread(target=utils.run_main_js, args=(main_js_path,))
+            thread = threading.Thread(target=utils.run_main_js, args=(main_js_path, project_path,))
             thread.start()
 
             comment = checking_server()

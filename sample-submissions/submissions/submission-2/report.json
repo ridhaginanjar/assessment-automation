@@ -6,5 +6,5 @@
         "root_serving_html",
         "serve_in_port_5000"
     ],
-    "messages": "Hi <b>Asep</b>, masih terdapat beberapa kesalahan nih, beriku beberapa kesalahannya <ul><li>Kami tidak menemukan element h1 yang di-isi dengan student id</li></ul>. Silakan perbaiki ya"
+    "messages": "Hi <b>Asep</b>, masih terdapat beberapa kesalahan nih, berikut beberapa kesalahannya <ul><li>Kami tidak menemukan element h1 yang di-isi dengan student id</li></ul>. Silakan perbaiki ya"
 }
