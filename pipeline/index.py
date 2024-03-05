@@ -1,6 +1,6 @@
 import os
 import threading
-import asyncio
+import re
 
 import pipeline.contract as ct
 import pipeline.checklist as cks
@@ -27,6 +27,16 @@ def find_file(submission_path, file_name: str):
         comment = f"{file_name} tidak ditemukan di project submission kamu"
 
     return file_path, comment
+
+
+def find_comment(file_path, student_id):
+    with open(file_path, "r") as f:
+        content = f.read()
+        rgx = re.search(rf"//.*?{student_id}|/\*\n.*?{student_id}", content)
+        if not rgx:
+            return "Kami tidak menemukan student_id kamu nih di file main.js"
+
+        return ""
 
 
 def main(params: str):
@@ -74,19 +84,24 @@ def main(params: str):
         print(c.serve_in_port_5000.__dict__)
 
     # Check comment with student ID (Depends to "main.js exist")
-    # if main_js_path:
-    #     print("check ID")
-    print(c.package_json_exists.__dict__)
+    if main_js_path:
+        comment = find_comment(main_js_path, get_config['submitter_id'])
+        if not comment:
+            c.main_js_has_student_id_comment.status = True
+        c.main_js_has_student_id_comment.comment = comment
+
+        print(c.main_js_has_student_id_comment.__dict__)
 
     report = rpt.generate_report(c, get_config['submitter_name'])
     ct.write_json(output_path, report)
 
+    utils.stop_server()
+
 
 """
 Error Handling:
-- stop server
-- waitserver till up
 - unhandled error (logging for error)
+- if error occur, the thread for running server is still running
 """
 
 

@@ -16,15 +16,13 @@ def run_main_js(main_js_path):
 
 
 def stop_server():
+    # kill -9 17890 $(lsof -t -i:5000)
     sub = subprocess.run(['kill', '-9 $(lsof -t -i tcp)'])
     if sub.returncode != 0:
         print(sub.stderr.decode().strip())
 
 
 def checking_server():
-    # Kill
-    # kill -9 17890 $(lsof -t -i:5000)
-
     host = "localhost"
     port = 5000
     timeout = 5
@@ -38,9 +36,8 @@ def checking_server():
             print(e)
             pass
 
-        time.sleep(1)
+        time.sleep(2)
 
     print("Server did not running on port 5000")
     stop_server()
-
     return "Kami tidak mendeteksi bahwa aplikasi berjalan pada Port 5000. Silakan cek kembali project kamu ya"
