@@ -1,7 +1,7 @@
 {
-    "checklists_completed": [
+    "checklistCompleted": [
         "package_json_exists",
         "main_js_exists"
     ],
-    "message": "Hallo Asep masih terdapat beberapa kesalahan, berikut adalah kesalahan yang terjadi <ul><li>Kami tidak bisa menemukan user id 123456 pada file main.js</li><li>Kami tidak bisa mendeteksi port 5000 setelah aplikasi dijalankan, mohon periksa kembali apakah port yang kamu gunakan adalah 5000</li></ul>. Silakan diperbaiki yaa."
+    "messages": "Hi <b>Asep</b>, masih terdapat beberapa kesalahan nih, beriku beberapa kesalahannya <ul><li>Kami tidak menemukan student_id kamu nih di file main.js</li><li>Kami tidak mendeteksi bahwa aplikasi berjalan pada Port 5000. Silakan cek kembali project kamu ya</li></ul>. Silakan perbaiki ya"
 }

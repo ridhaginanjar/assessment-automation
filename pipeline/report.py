@@ -25,11 +25,10 @@ def generate_template(report, username):
         return f"Selamat! <b>{username}</b> kamu sudah telah lolos submission ini."
 
     result = ''.join(report["messages"])
-    return f"Hi <b>{username}</b>, masih terdapat beberapa kesalahan nih, beriku beberapa kesalahannya <ul>{result}</ul>. Silakan perbaiki ya"
+    return f"Hi <b>{username}</b>, masih terdapat beberapa kesalahan nih, berikut beberapa kesalahannya <ul>{result}</ul>. Silakan perbaiki ya"
 
 
 def generate_report(checklists, username):
     report = create_report(checklists)
     report['messages'] = generate_template(report, username)
-    print(report)
     return report

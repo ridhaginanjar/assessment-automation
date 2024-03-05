@@ -1,4 +1,4 @@
 {
-    "checklist": [],
-    "message": ""
+    "checklistCompleted": [],
+    "messages": "Hi <b>Ujang</b>, masih terdapat beberapa kesalahan nih, beriku beberapa kesalahannya <ul><li>package.json tidak ditemukan di project submission kamu</li><li>main.js tidak ditemukan di project submission kamu</li></ul>. Silakan perbaiki ya"
 }
